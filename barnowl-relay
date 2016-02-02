@@ -1,0 +1,123 @@
+#!/usr/bin/env node
+
+/*
+ * Copyright reelyActive 2016
+ * We believe in an open Internet of Things
+ */
+
+
+var DEFAULT_HOSTNAME = 'www.hyperlocalcontext.com';
+var DEFAULT_PORT = '80';
+var DEFAULT_CONSOLE_LOG = false;
+var DEFAULT_SERIAL_PATH = 'auto';
+var DEFAULT_UDP_PATH = '0.0.0.0:50000';
+var BARNOWL_M_N = 4;
+var BARNOWL_M_MIXING = true;
+var SPINNER = [ '|', '/', '-', '\\' ];
+
+
+/* Begin command-line argument handling */
+/* ------------------------------------ */
+var minimist = require('minimist');
+var argv = minimist(process.argv.slice(2));
+
+if(argv.help) {
+  console.log('-h <hostname>   # the hostname of barnacles instance, localhost by default');
+  console.log('-m              # multiple reelceiver mode');
+  console.log('-p <port>       # the port of barnacles instance, 3011 by default');
+  console.log('-s              # listen for serial data via USB hub');
+  console.log('-u              # listen for UDP data via IP hub');
+  console.log('-v              # verbosely log events to console');
+  process.exit(0);
+}
+
+var options = {};
+options.hostname = argv.h || DEFAULT_HOSTNAME;
+options.port = argv.p || DEFAULT_PORT;
+options.logToConsole = argv.v || DEFAULT_CONSOLE_LOG;
+
+var settings = {};
+if(argv.m) {
+  settings.n = BARNOWL_M_N;
+  settings.enableMixing = BARNOWL_M_MIXING;
+}
+
+var enableSerial = argv.s;
+var enableUDP = argv.u;
+var fallbackUDP = false;
+if(!enableSerial && !enableUDP) {
+  enableSerial = true;
+  fallbackUDP = true;
+}
+
+/* ------------------------------------ */
+/*  End command-line argument handling  */
+
+
+var barnowl = require('barnowl');
+var reelib = require('reelib');
+var middleware = new barnowl(settings);
+
+
+/**
+ * Execute normal operation.
+ */
+function go() {
+
+  var validTiraidCount = 0;
+  var validRelayCount = 0;
+  var spindex = 0;
+
+  middleware.on('visibilityEvent', function(tiraid) {
+    if(reelib.tiraid.isValid(tiraid)) {
+      var event = { event: 'appearance', tiraid: tiraid };
+      validTiraidCount++;
+      reelib.event.postUpdate(options, event, function(err, event, message) {
+        if(!err) {
+          validRelayCount++;
+        }
+        else if(options.logToConsole) {
+          console.log('     ' + validRelayCount + ' of ' + validTiraidCount +
+                      ' events successfully relayed');
+        }
+      });
+    }
+    else if((validTiraidCount === 0) && (options.logToConsole)) {
+      process.stdout.write(SPINNER[spindex++ % SPINNER.length] + '\r');
+    }
+  });
+
+}
+
+
+/**
+ * Handle exceptions, specifically on serial connection failure.
+ */
+process.on('uncaughtException', function(err) {
+  if(err.message === 'Can\'t auto-determine serial port') {
+    if(fallbackUDP) {
+      middleware.bind({ protocol: 'udp', path: DEFAULT_UDP_PATH });
+      console.log('Serial connection failed, falling back to UDP');
+    }
+    else {
+      console.log('Please confirm that the reelyActive USB Hub is correctly installed, then retry');
+      process.exit(0);
+    }
+  }
+  else {
+    console.log('An exception occurred, a restart is required:\r\n     ' +
+                err.message);
+    process.exit(0);
+  }
+});
+
+
+if(enableUDP) {
+  middleware.bind({ protocol: 'udp', path: DEFAULT_UDP_PATH });
+}
+if(enableSerial) {
+  middleware.bind({ protocol: 'serial', path: DEFAULT_SERIAL_PATH });
+}
+
+go();
+
