@@ -12,7 +12,7 @@ Installation
 
     npm install -g barnowl-relay
 
-You may need to run the above as super-user (prefix the command with sudo).  Alternatively, use the Docker repository: reelyactive/barnowl-relay
+You may need to run the above as super-user (prefix the command with sudo).  Alternatively, use the Docker repository: [reelyactive/barnowl-relay](https://hub.docker.com/r/reelyactive/barnowl-relay/)
 
     docker pull reelyactive/barnowl-relay
 
@@ -20,27 +20,27 @@ You may need to run the above as super-user (prefix the command with sudo).  Alt
 Examples
 --------
 
-### Relay a USB hub to www.hyperlocalcontext.com (default)
+__Relay a USB hub to www.hyperlocalcontext.com (default)__
 
     barnowl-relay
 
-### Relay a USB hub to www.hyperlocalcontext.com with console logging
+__Relay a USB hub to www.hyperlocalcontext.com with console logging__
 
     barnowl-relay -v
 
-### Relay a USB hub to mybarnacles.io:8080
+__Relay a USB hub to mybarnacles.io:8080__
 
     barnowl-relay -h mybarnacles.io -p 8080
 
-### Relay an IP hub to www.hyperlocalcontext.com
+__Relay an IP hub to www.hyperlocalcontext.com__
 
     barnowl-relay -u
 
-### Relay multiple IP hubs to mybarnacles.io:8080 with console logging
+__Relay multiple IP hubs to mybarnacles.io:8080 with console logging__
 
     barnowl-relay -um -h mybarnacles.io -p 8080
 
-### RTFM
+__RTFM__
 
     barnowl-relay --help
 
