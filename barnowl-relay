@@ -27,6 +27,7 @@ if(argv.help) {
   console.log('-s              # listen for serial data via USB hub');
   console.log('-u              # listen for UDP data via IP hub');
   console.log('-v              # verbosely log events to console');
+  console.log('-x              # the URL of the proxy server, if any');
   process.exit(0);
 }
 
@@ -34,6 +35,10 @@ var options = {};
 options.hostname = argv.h || DEFAULT_HOSTNAME;
 options.port = argv.p || DEFAULT_PORT;
 options.logToConsole = argv.v || DEFAULT_CONSOLE_LOG;
+
+if(argv.x) {
+  options.proxy = argv.x;
+}
 
 var settings = { enableMixing: true };
 if(argv.m) {

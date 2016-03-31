@@ -74,6 +74,12 @@ By default, barnowl-relay will POST to port 80.  To instead use port 8080, for i
 
     barnowl-relay -p 8080
 
+### Relay via a specific proxy server
+
+By default, barnowl-relay will POST directly to the target host.  To instead use a proxy server, for instance, run as follows:
+
+    barnowl-relay -x http://my.proxy.name
+
 ### RTFM
 
     barnowl-relay --help
