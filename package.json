@@ -9,7 +9,7 @@
     "IoT",
     "barnowl"
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "barnowl": ">=0.4.14",
-    "reelib": ">=0.0.6",
+    "reelib": ">=0.0.8",
     "serialport": ">=2.0.6",
     "minimist": ">=1.2.0"
   },
