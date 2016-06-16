@@ -30,13 +30,13 @@ Usage with USB Hub
 
 For use with a [minimal starter kit](http://shop.reelyactive.com/products/starterkit-min) connected to the computer.
 
-### Relay to www.hyperlocalcontext.com (default)
+### Relay to pareto.reelyactive.com (default)
 
     barnowl-relay -s
 
-### Relay to cloud.reelyactive.com
+### Relay to www.hyperlocalcontext.com
 
-    barnowl-relay -s -h cloud.reelyactive.com
+    barnowl-relay -s -h www.hyperlocalcontext.com
 
 
 Usage with IP Hub
@@ -44,13 +44,13 @@ Usage with IP Hub
 
 For use with a [BLE starter kit](http://shop.reelyactive.com/products/starterkit-ble) or equivalent which is sending UDP packets to the computer.
 
-### Relay to www.hyperlocalcontext.com (default)
+### Relay to pareto.reelyactive.com (default)
 
     barnowl-relay -um
 
-### Relay to cloud.reelyactive.com
+### Relay to www.hyperlocalcontext.com
 
-    barnowl-relay -um -h cloud.reelyactive.com
+    barnowl-relay -um -h www.hyperlocalcontext.com
 
 
 Advanced Parameters
@@ -64,7 +64,7 @@ By default, barnowl-relay will only log errors to the console.  To log all relay
 
 ### Relay to a specific host
 
-By default, barnowl-relay will POST to www.hyperlocalcontext.com.  To instead use mybarnacles.io, for instance, run as follows:
+By default, barnowl-relay will POST to pareto.reelyactive.com.  To instead use mybarnacles.io, for instance, run as follows:
 
     barnowl-relay -h mybarnacles.io
 

@@ -6,7 +6,7 @@
  */
 
 
-var DEFAULT_HOSTNAME = 'www.hyperlocalcontext.com';
+var DEFAULT_HOSTNAME = 'pareto.reelyactive.com';
 var DEFAULT_PORT = '80';
 var DEFAULT_CONSOLE_LOG = false;
 var DEFAULT_SERIAL_PATH = 'auto';
