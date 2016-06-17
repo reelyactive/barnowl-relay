@@ -90,6 +90,10 @@ function go() {
     }
   });
 
+  middleware.on('reelEvent', function(event) {
+    reelib.reel.putStatusUpdate(options, event, function() { });
+  });
+
 }
 
 
