@@ -9,7 +9,7 @@
     "IoT",
     "barnowl"
   ],
-  "version": "0.1.4",
+  "version": "0.1.5",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -22,7 +22,7 @@
     "url": "https://github.com/reelyactive/barnowl-relay.git"
   },
   "dependencies": {
-    "barnowl": ">=0.4.21",
+    "barnowl": "0.4.21",
     "reelib": ">=0.0.11",
     "serialport": ">=2.0.6 <=4",
     "minimist": ">=1.2.0"
